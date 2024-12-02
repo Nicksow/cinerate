@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_rating: ^2.0.2
   cloud_firestore: ^4.17.5
+  http: ^1.2.2
 
 
 dev_dependencies:

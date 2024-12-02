@@ -1,4 +1,8 @@
+import 'package:cinerate/blocs/movieDB/movieDB_bloc.dart';
+import 'package:cinerate/blocs/movieDB/movieDB_event.dart';
+import 'package:cinerate/blocs/movieDB/movieDB_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 
 
@@ -53,12 +57,45 @@ double rating = 0.0;
               style: TextStyle(
                 fontSize: 24,
                 color: Colors.white,
-              )
+              ),
           ),
-          SearchBar(
-            hintText: "Rechercher un film ou une série",
-            controller: _textFieldController,
-            leading: const Icon(Icons.search),
+          Row(
+            children: [
+              Expanded(
+                child: SearchBar(
+                  controller: _textFieldController,
+                  hintText: 'Rechercher un film ou une série',
+                  leading: const Icon(Icons.search),
+                  onChanged: (value) {
+                    context.read<MovieDBBloc>().add(MovieDBLoadEvent(query: value));
+                  },
+                ),
+              ),
+            ],
+          ),
+          BlocBuilder<MovieDBBloc,MovieDBState>(
+            builder: (context, state) {
+              if (state is MovieDBLoaded && state.content.isNotEmpty) {
+                return SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.content.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(state.content[index]['title'] ?? state.content[index]['name'], style: const TextStyle(color: Color(0xffF2EFEA))),
+                        onTap: () {
+                          _textFieldController.text = state.content[index]['title']?? state.content[index]['name'];
+                          context.read<MovieDBBloc>().add(MovieDBUnloadEvent());
+                        },
+                      );
+                    },
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
           ),
           const SizedBox(height: 20.0),
           const Text("Avis personnel",
