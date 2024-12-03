@@ -1,3 +1,4 @@
+import 'package:cinerate/blocs/content/content_bloc.dart';
 import 'package:cinerate/blocs/login/login_bloc.dart';
 import 'package:cinerate/blocs/movieDB/movieDB_bloc.dart';
 import 'package:cinerate/firebase_options.dart';
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<MovieDBBloc>(
           create: (context) => MovieDBBloc(),
+        ),
+        BlocProvider<ContentBloc>(
+          create: (context) => ContentBloc(),
         ),
       ],
       child: MaterialApp(

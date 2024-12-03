@@ -1,6 +1,11 @@
+import 'package:cinerate/blocs/content/content_bloc.dart';
+import 'package:cinerate/blocs/content/content_event.dart';
+import 'package:cinerate/blocs/login/login_bloc.dart';
+import 'package:cinerate/blocs/login/login_state.dart';
 import 'package:cinerate/blocs/movieDB/movieDB_bloc.dart';
 import 'package:cinerate/blocs/movieDB/movieDB_event.dart';
 import 'package:cinerate/blocs/movieDB/movieDB_state.dart';
+import 'package:cinerate/models/content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating/flutter_rating.dart';
@@ -49,6 +54,8 @@ double rating = 0.0;
   @override
   Widget build(BuildContext context) {
     var movieDBBloc = context.read<MovieDBBloc>();
+    var loginBloc = context.read<LoginBloc>();
+    var contentBloc = context.read<ContentBloc>();
 
     return Padding(
       padding: const EdgeInsets.all(25),
@@ -171,7 +178,16 @@ double rating = 0.0;
                     backgroundColor: WidgetStatePropertyAll(Colors.blueAccent),
                   ),
                   onPressed: () {
-                    sendVisualContent();
+                    contentBloc.add(AddContentEvent(Content(
+                      title: _textFieldController.text,
+                      opinion: _opinionController.text,
+                      rate: rating,
+                      type: currentOption,
+                      date: DateTime.now(),
+                      username: (loginBloc.state as LoggedIn).user.name,
+                      isSeen: false,
+                    )));
+                    Navigator.pop(context);
                   },
                   child: const Text("Ajouter",style: TextStyle(fontSize: 20, color: Colors.white))
               )
@@ -181,5 +197,4 @@ double rating = 0.0;
     );
   }
 
-  void sendVisualContent() {}
 }

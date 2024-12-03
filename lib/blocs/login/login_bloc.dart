@@ -18,10 +18,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (credential.user != null) {
           emit(LoggedIn(Users(name:credential.user!.email!)));
         } else {
-          emit(LoginError('Utilisateur non trouvé'));
+          emit(LoginError('Utilisateur non trouvé. Veuillez vérifier vos informations'));
         }
       }catch(e){
-        emit(LoginError(e.toString()));
+        emit(LoginError("Utilisateur non trouvé. Veuillez réessayer"));
       }
     });
 
