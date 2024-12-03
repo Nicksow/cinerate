@@ -48,6 +48,8 @@ double rating = 0.0;
 
   @override
   Widget build(BuildContext context) {
+    var movieDBBloc = context.read<MovieDBBloc>();
+
     return Padding(
       padding: const EdgeInsets.all(25),
       child: Column(
@@ -67,7 +69,7 @@ double rating = 0.0;
                   hintText: 'Rechercher un film ou une série',
                   leading: const Icon(Icons.search),
                   onChanged: (value) {
-                    context.read<MovieDBBloc>().add(MovieDBLoadEvent(query: value));
+                    movieDBBloc.add(MovieDBLoadEvent(query: value));
                   },
                 ),
               ),
@@ -86,7 +88,7 @@ double rating = 0.0;
                         title: Text(state.content[index]['title'] ?? state.content[index]['name'], style: const TextStyle(color: Color(0xffF2EFEA))),
                         onTap: () {
                           _textFieldController.text = state.content[index]['title']?? state.content[index]['name'];
-                          context.read<MovieDBBloc>().add(MovieDBUnloadEvent());
+                          movieDBBloc.add(MovieDBUnloadEvent());
                         },
                       );
                     },

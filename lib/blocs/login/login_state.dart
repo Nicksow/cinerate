@@ -1,4 +1,4 @@
-import '../../models/user.dart';
+import 'package:cinerate/models/users.dart';
 
 abstract class LoginState {
   const LoginState();
@@ -15,7 +15,7 @@ class LoginError extends LoginState {
 }
 
 class LoggedIn extends LoginState {
-  final User user;
+  final Users user;
   LoggedIn(this.user);
 }
 

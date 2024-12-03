@@ -1,5 +1,5 @@
-import 'package:cinerate/models/user.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cinerate/models/users.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'login_event.dart';
 import 'login_state.dart';
@@ -14,14 +14,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
       try{
         emit( const LoggingIn());
-        final querySnapshot = await FirebaseFirestore.instance
-            .collection('User')
-            .where('name', isEqualTo: event.name)
-            .where('password', isEqualTo: event.password)
-            .get();
-        if (querySnapshot.docs.isNotEmpty) {
-          final user = querySnapshot.docs.first.data();
-          emit(LoggedIn(User(name: user['name'], password: user['password'])));
+        final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: event.name, password: event.password);
+        if (credential.user != null) {
+          emit(LoggedIn(Users(name:credential.user!.email!)));
         } else {
           emit(LoginError('Utilisateur non trouvé'));
         }
