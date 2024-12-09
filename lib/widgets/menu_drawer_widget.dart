@@ -1,15 +1,23 @@
+import 'package:cinerate/blocs/content/content_bloc.dart';
+import 'package:cinerate/blocs/content/content_event.dart';
+import 'package:cinerate/blocs/content/content_state.dart';
 import 'package:cinerate/blocs/login/login_bloc.dart';
 import 'package:cinerate/blocs/login/login_event.dart';
 import 'package:cinerate/blocs/login/login_state.dart';
+import 'package:cinerate/models/menuIndex.dart';
 import 'package:cinerate/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class MenuDrawerWidget extends StatelessWidget {
   const MenuDrawerWidget({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    final menuIndex = Provider.of<MenuIndex>(context);
+
     return Drawer(
       backgroundColor: const Color(0xFF788585),
       child: Column(
@@ -32,8 +40,9 @@ class MenuDrawerWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                 )),
+            selected: menuIndex.index == 0,
             onTap: () {
-              // gérer le contenu de la page à voir
+              menuIndex.updateIndex(0);
               Navigator.pop(context);
             },
           ),
@@ -44,8 +53,9 @@ class MenuDrawerWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                 )),
+            selected: menuIndex.index == 1,
             onTap: () {
-              // gérer le contenu de la page déjà vu
+              menuIndex.updateIndex(1);
               Navigator.pop(context);
             },
           ),

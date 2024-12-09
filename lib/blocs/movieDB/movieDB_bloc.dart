@@ -19,7 +19,11 @@ class MovieDBBloc extends Bloc<MovieDBEvent, MovieDBState> {
         if (movieResponse.statusCode == 200 && tvResponse.statusCode == 200) {
           final movieData = json.decode(movieResponse.body);
           final tvData = json.decode(tvResponse.body);
-          emit(MovieDBLoaded(movieData['results'] + tvData['results']));
+          final List<dynamic> mergeContent = [
+            ...movieData['results'].map((item) => {'type': 'Film', ...item}),
+            ...tvData['results'].map((item) => {'type': 'Série', ...item}),
+          ];
+          emit(MovieDBLoaded(mergeContent));
         } else {
           emit(const MovieDBError('Erreur lors du chargement des données'));
         }

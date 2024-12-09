@@ -2,6 +2,7 @@ import 'package:cinerate/blocs/content/content_bloc.dart';
 import 'package:cinerate/blocs/login/login_bloc.dart';
 import 'package:cinerate/blocs/movieDB/movieDB_bloc.dart';
 import 'package:cinerate/firebase_options.dart';
+import 'package:cinerate/models/menuIndex.dart';
 import 'package:cinerate/pages/add_page.dart';
 import 'package:cinerate/pages/detail_page.dart';
 import 'package:cinerate/pages/home_page.dart';
@@ -9,12 +10,18 @@ import 'package:cinerate/pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => MenuIndex(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

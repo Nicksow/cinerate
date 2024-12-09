@@ -2,12 +2,19 @@ import 'package:cinerate/models/content.dart';
 
 abstract class ContentEvent {}
 
-class FetchContentEvent extends ContentEvent {}
+class GetContentEvent extends ContentEvent {}
 
 class ToggleSeenStatus extends ContentEvent {
-  final String id;
+  final String? id;
+  final bool isSeen;
 
-  ToggleSeenStatus(this.id);
+  ToggleSeenStatus(this.id,this.isSeen);
+}
+
+class ContentSetState extends ContentEvent {
+  final List<Content> contentList;
+
+  ContentSetState(this.contentList);
 }
 
 class DeleteContentEvent extends ContentEvent {

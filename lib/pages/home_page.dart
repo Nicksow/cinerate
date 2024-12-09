@@ -1,5 +1,8 @@
+import 'package:cinerate/blocs/content/content_bloc.dart';
+import 'package:cinerate/blocs/content/content_state.dart';
 import 'package:cinerate/blocs/login/login_bloc.dart';
 import 'package:cinerate/blocs/login/login_state.dart';
+import 'package:cinerate/widgets/content_widget.dart';
 import 'package:cinerate/widgets/menu_drawer_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +43,7 @@ class _HomePage extends State<HomePage> {
           ),
           body: Column(
             children: [
+              ContentWidget(),
               BlocListener<LoginBloc, LoginState>(
                   listener: (context, state) {
                     if (state is LoggedIn) {

@@ -1,21 +1,22 @@
 import 'package:cinerate/models/content.dart';
 
-abstract class ContentState {
-  const ContentState();
+class ContentState {
+  final List<Content> contentList;
+
+  const ContentState({required this.contentList});
 }
 
 class ContentLoading extends ContentState {
-  const ContentLoading();
+  const ContentLoading() : super(contentList: const []);
 }
 
 class ContentError extends ContentState {
   final String error;
-
-  ContentError(this.error);
+  const ContentError(this.error) : super(contentList: const []);
 }
 
 class ContentLoaded extends ContentState {
   final List<Content> contentList;
-
-  ContentLoaded(this.contentList);
+  const ContentLoaded(this.contentList) : super(contentList: contentList);
 }
+
