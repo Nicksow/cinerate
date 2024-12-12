@@ -4,6 +4,12 @@ abstract class ContentEvent {}
 
 class GetContentEvent extends ContentEvent {}
 
+class AddContentEvent extends ContentEvent {
+  final Content content;
+
+  AddContentEvent(this.content);
+}
+
 class ToggleSeenStatus extends ContentEvent {
   final String? id;
   final bool isSeen;
@@ -17,21 +23,3 @@ class ContentSetState extends ContentEvent {
   ContentSetState(this.contentList);
 }
 
-class DeleteContentEvent extends ContentEvent {
-  final String id;
-
-  DeleteContentEvent(this.id);
-}
-
-class UpdateContentEvent extends ContentEvent {
-  final String id;
-  final String note;
-
-  UpdateContentEvent(this.id, this.note);
-}
-
-class AddContentEvent extends ContentEvent {
-  final Content content;
-
-  AddContentEvent(this.content);
-}

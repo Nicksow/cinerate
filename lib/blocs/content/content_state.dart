@@ -20,3 +20,4 @@ class ContentLoaded extends ContentState {
   const ContentLoaded(this.contentList) : super(contentList: contentList);
 }
 
+

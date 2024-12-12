@@ -1,4 +1,5 @@
 import 'package:cinerate/blocs/content/content_bloc.dart';
+import 'package:cinerate/blocs/detail/detail_bloc.dart';
 import 'package:cinerate/blocs/login/login_bloc.dart';
 import 'package:cinerate/blocs/movieDB/movieDB_bloc.dart';
 import 'package:cinerate/firebase_options.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<ContentBloc>(
           create: (context) => ContentBloc(),
         ),
+        BlocProvider<DetailBloc>(
+          create: (context) => DetailBloc(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -51,7 +55,6 @@ class MyApp extends StatelessWidget {
           '/home': (context) => const HomePage(),
           '/add': (context) => const AddPage(),
           '/detail': (context) => const DetailPage(),
-
         },
         debugShowCheckedModeBanner: false,
       ),

@@ -1,5 +1,7 @@
 import 'package:cinerate/blocs/content/content_bloc.dart';
 import 'package:cinerate/blocs/content/content_event.dart';
+import 'package:cinerate/blocs/detail/detail_bloc.dart';
+import 'package:cinerate/blocs/detail/detail_event.dart';
 import 'package:cinerate/models/content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +21,7 @@ class ContentTile extends StatefulWidget {
 class _ContentTileState extends State<ContentTile> {
   double opacity = 1.0;
 
-  void toggleSeen(BuildContext context) {
+  void toggleSeenAnimation(BuildContext context) {
     setState(() {
       opacity = opacity == 1.0 ? 0.5 : 1.0;
     });
@@ -53,8 +55,9 @@ class _ContentTileState extends State<ContentTile> {
             subtitle: Text(widget.data.opinion,
                 overflow: TextOverflow.ellipsis
             ),
-            onTap: () {
-
+            onTap: () async {
+              context.read<DetailBloc>().add(GetDetailEvent(widget.data.id));
+              Navigator.pushNamed(context, '/detail');
             },
             trailing: Container(
               decoration: BoxDecoration(
@@ -65,7 +68,7 @@ class _ContentTileState extends State<ContentTile> {
                 icon: const Icon( IconData(0xe156, fontFamily: 'MaterialIcons'),),
                 color: Colors.black,
                 onPressed: () {
-                  toggleSeen(context);
+                  toggleSeenAnimation(context);
                 },
               ),
             ),

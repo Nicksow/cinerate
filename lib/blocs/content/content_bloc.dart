@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ContentBloc extends Bloc<ContentEvent, ContentState> {
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? _subscription;
 
-
   ContentBloc() : super(const ContentLoading()){
     on<AddContentEvent>((event, emit) async {
       FirebaseFirestore.instance.collection('content').add({
@@ -74,26 +73,6 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
           });
         }
         this.add(GetContentEvent());
-      } catch (e) {
-        emit(ContentError(e.toString()));
-      }
-    });
-
-    on<DeleteContentEvent>((event, emit) async {
-      try {
-        emit(const ContentLoading());
-        // final contentList = await _fetchData();
-        // emit(ContentLoadSuccess(contentList));
-      } catch (e) {
-        emit(ContentError(e.toString()));
-      }
-    });
-
-    on<UpdateContentEvent>((event, emit) async {
-      try {
-        emit(const ContentLoading());
-        // final contentList = await _fetchData();
-        // emit(ContentLoadSuccess(contentList));
       } catch (e) {
         emit(ContentError(e.toString()));
       }

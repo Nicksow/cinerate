@@ -24,6 +24,7 @@ class _ContentWidgetState extends State<ContentWidget> {
     contentBloc.add(GetContentEvent());
   }
 
+
   @override
   Widget build(BuildContext context) {
     final menuIndex = context.watch<MenuIndex>();

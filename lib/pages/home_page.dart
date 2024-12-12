@@ -1,4 +1,5 @@
 import 'package:cinerate/blocs/content/content_bloc.dart';
+import 'package:cinerate/blocs/content/content_event.dart';
 import 'package:cinerate/blocs/content/content_state.dart';
 import 'package:cinerate/blocs/login/login_bloc.dart';
 import 'package:cinerate/blocs/login/login_state.dart';
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
