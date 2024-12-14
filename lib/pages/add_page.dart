@@ -43,6 +43,8 @@ class _DataPageState extends State<DataPage> {
   final _opinionController = TextEditingController();
   String currentOption = contentType[0];
   double rating = 0.0;
+  String imageUrl = '';
+  var movieId = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -55,29 +57,29 @@ class _DataPageState extends State<DataPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildTitle("Titre"),
-          _buildSearchBar(movieDBBloc),
-          _buildMovieDBList(movieDBBloc),
+          myTitle("Titre"),
+          mySearchBar(movieDBBloc),
+          myMovieDBList(movieDBBloc),
           const SizedBox(height: 20.0),
-          _buildTitle("Avis personnel"),
-          _buildOpinionField(),
+          myTitle("Avis personnel"),
+          myOpinionField(),
           const SizedBox(height: 20.0),
-          _buildTitle("Note"),
-          _buildRatingBar(),
+          myTitle("Note"),
+          myRatingBar(),
           const SizedBox(height: 20.0),
-          _buildRadioListTile("Film"),
-          _buildRadioListTile("Série"),
-          _buildAddButton(contentBloc, loginBloc),
+          myRadioListTile("Film"),
+          myRadioListTile("Série"),
+          myAddButton(contentBloc, loginBloc),
         ],
       ),
     );
   }
 
-  Widget _buildTitle(String title) {
+  Widget myTitle(String title) {
     return Text(title, style: const TextStyle(fontSize: 24, color: Colors.white));
   }
 
-  Widget _buildSearchBar(MovieDBBloc movieDBBloc) {
+  Widget mySearchBar(MovieDBBloc movieDBBloc) {
     return Row(
       children: [
         Expanded(
@@ -94,7 +96,7 @@ class _DataPageState extends State<DataPage> {
     );
   }
 
-  Widget _buildMovieDBList(MovieDBBloc movieDBBloc) {
+  Widget myMovieDBList(MovieDBBloc movieDBBloc) {
     return BlocBuilder<MovieDBBloc, MovieDBState>(
       builder: (context, state) {
         if (state is MovieDBLoaded && state.content.isNotEmpty) {
@@ -104,12 +106,47 @@ class _DataPageState extends State<DataPage> {
               shrinkWrap: true,
               itemCount: state.content.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(state.content[index]['title'] ?? state.content[index]['name'], style: const TextStyle(color: Color(0xffF2EFEA))),
+                return GestureDetector(
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: Container(
+                      height: 80,
+                      padding: const EdgeInsets.all(0),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage('https://image.tmdb.org/t/p/w500${state.content[index]['poster_path']}'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 18,
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(state.content[index]['title'] ?? state.content[index]['name'], style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis)),
+                                  Text(state.content[index]['overview'], style: const TextStyle(overflow: TextOverflow.ellipsis)),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                   onTap: () {
                     _textFieldController.text = state.content[index]['title'] ?? state.content[index]['name'];
                     setState(() {
+                      imageUrl = state.content[index]['poster_path'];
                       currentOption = state.content[index]['type'];
+                      movieId = state.content[index]['id'];
                     });
                     movieDBBloc.add(MovieDBUnloadEvent());
                   },
@@ -124,7 +161,7 @@ class _DataPageState extends State<DataPage> {
     );
   }
 
-  Widget _buildOpinionField() {
+  Widget myOpinionField() {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -142,7 +179,7 @@ class _DataPageState extends State<DataPage> {
     );
   }
 
-  Widget _buildRatingBar() {
+  Widget myRatingBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -158,7 +195,7 @@ class _DataPageState extends State<DataPage> {
     );
   }
 
-  Widget _buildRadioListTile(String value) {
+  Widget myRadioListTile(String value) {
     return RadioListTile(
       fillColor: WidgetStateProperty.all(Colors.white),
       title: Text(value, style: const TextStyle(color: Color(0xffF2EFEA))),
@@ -172,7 +209,7 @@ class _DataPageState extends State<DataPage> {
     );
   }
 
-  Widget _buildAddButton(ContentBloc contentBloc, LoginBloc loginBloc) {
+  Widget myAddButton(ContentBloc contentBloc, LoginBloc loginBloc) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -183,6 +220,8 @@ class _DataPageState extends State<DataPage> {
           ),
           onPressed: () {
             contentBloc.add(AddContentEvent(Content(
+              imageUrl: imageUrl,
+              movieId: movieId,
               title: _textFieldController.text,
               opinion: _opinionController.text,
               rate: rating,

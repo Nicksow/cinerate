@@ -39,39 +39,72 @@ class _ContentTileState extends State<ContentTile> {
         padding: const EdgeInsets.fromLTRB(25, 25, 25, 0),
         child: Opacity(
           opacity: widget.data.isSeen ? 0.5 : 1,
-          child: ListTile(
-            textColor: Colors.white,
-            tileColor: const Color(0xFF788585),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-            ),
-            title: Text(
-                widget.data.title,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 20,
-                )
-            ),
-            subtitle: Text(widget.data.opinion,
-                overflow: TextOverflow.ellipsis
+          child: GestureDetector(
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              child: Container(
+                color: const Color(0xFF788585),
+                height: 80,
+                padding: const EdgeInsets.all(0),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 60,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage('https://image.tmdb.org/t/p/w500${widget.data.imageUrl}' ?? 'https://via.placeholder.com/150'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.data.title,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            Text(
+                              widget.data.opinion,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                        color: widget.data.isSeen ? Colors.green : Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: IconButton(
+                        icon: const Icon( IconData(0xe156, fontFamily: 'MaterialIcons'),),
+                        color: Colors.black,
+                        onPressed: () {
+                          toggleSeenAnimation(context);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             onTap: () async {
               context.read<DetailBloc>().add(GetDetailEvent(widget.data.id));
               Navigator.pushNamed(context, '/detail');
             },
-            trailing: Container(
-              decoration: BoxDecoration(
-                color: widget.data.isSeen ? Colors.green : Colors.white,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: IconButton(
-                icon: const Icon( IconData(0xe156, fontFamily: 'MaterialIcons'),),
-                color: Colors.black,
-                onPressed: () {
-                  toggleSeenAnimation(context);
-                },
-              ),
-            ),
           ),
         ),
       ),

@@ -28,8 +28,7 @@ class DetailBloc extends Bloc<DetailEvent,DetailState>{
           );
           FirebaseFirestore.instance
               .collection('content')
-              .where('title', isEqualTo: content.title)
-              .where('type', isEqualTo: content.type)
+              .where('movieId', isEqualTo: content.movieId)
               .snapshots()
               .listen((snapshot) {
             final data = snapshot.docs;
@@ -48,7 +47,6 @@ class DetailBloc extends Bloc<DetailEvent,DetailState>{
     });
 
     on<DetailSetState>((event, emit) {
-      print('rate: ${event.rates}');
       emit(DetailState(content: event.content, rates: event.rates));
     });
 

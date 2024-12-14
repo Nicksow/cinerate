@@ -31,8 +31,20 @@ class LoginWidget extends StatelessWidget {
           return Column(
             children: [
               if (state is LoginError) ...[
-                const Text("Status : ", style: TextStyle(color: Colors.redAccent)),
-                Text(state.error, style: const TextStyle(color: Colors.redAccent)),
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  margin: const EdgeInsets.all(15),
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Column(
+                    children: [
+                      const Text("Erreur : ", style: TextStyle(color: Colors.white)),
+                      Text(state.error, style: const TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ),
                 LoginForm()
               ] else if (state is LoggedOut) ...[
                 LoginForm(),

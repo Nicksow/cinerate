@@ -12,6 +12,8 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
   ContentBloc() : super(const ContentLoading()){
     on<AddContentEvent>((event, emit) async {
       FirebaseFirestore.instance.collection('content').add({
+        'imageUrl': event.content.imageUrl,
+        'movieId': event.content.movieId,
         'title': event.content.title,
         'opinion': event.content.opinion,
         'rate': event.content.rate,
@@ -41,6 +43,7 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
             final data = doc.data();
             return Content(
               id: doc.id,
+              imageUrl: data['imageUrl'],
               title: data['title'],
               opinion: data['opinion'],
               rate: data['rate'],

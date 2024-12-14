@@ -9,7 +9,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(const LoggedOut()) {
     on<LogInEvent>((event, emit) async {
       if (event.name.trim().isEmpty || event.password.trim().isEmpty) {
-        emit(LoginError('Le nom et le mot de passe ne peuvent pas être vides'));
+        emit(LoginError('Veuillez remplir tous les champs'));
         return;
       }
       try{
@@ -18,7 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (credential.user != null) {
           emit(LoggedIn(Users(name:credential.user!.email!)));
         } else {
-          emit(LoginError('Utilisateur non trouvé. Veuillez vérifier vos informations'));
+          emit(LoginError('Utilisateur non trouvé. Veuillez réessayer'));
         }
       }catch(e){
         emit(LoginError("Utilisateur non trouvé. Veuillez réessayer"));

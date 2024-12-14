@@ -7,6 +7,7 @@ class Content {
   final bool isSeen;
   final String username;
   final DateTime date;
-
-  Content({this.id,required this.title, required this.opinion, required this.rate, required this.type, required this.date, required this.username, required this.isSeen});
+  final String? imageUrl;
+  final int? movieId;
+  Content({this.id,this.imageUrl,this.movieId,required this.title, required this.opinion, required this.rate, required this.type, required this.date, required this.username, required this.isSeen});
 }
