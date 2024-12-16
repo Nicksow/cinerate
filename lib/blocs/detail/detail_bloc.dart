@@ -18,7 +18,8 @@ class DetailBloc extends Bloc<DetailEvent,DetailState>{
           final data = snapshot.data();
           final content = Content(
             id: snapshot.id,
-            title: data!['title'],
+            movieId: data!['movieId'],
+            title: data['title'],
             opinion: data['opinion'],
             rate: data['rate'],
             type: data['type'],
