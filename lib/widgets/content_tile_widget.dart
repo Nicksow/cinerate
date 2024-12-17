@@ -26,7 +26,11 @@ class _ContentTileState extends State<ContentTile> {
       opacity = opacity == 1.0 ? 0.5 : 1.0;
     });
     Future.delayed(const Duration(milliseconds: 300), () {
-      context.read<ContentBloc>().add(ToggleSeenStatus(widget.data.id, widget.data.isSeen));
+      var contentBloc = context.read<ContentBloc>();
+      contentBloc.add(ToggleSeenStatus(widget.data.id, widget.data.isSeen));
+      if (widget.data.isSeen) {
+        contentBloc.add(UpdateSeenDate(widget.data.id, DateTime.now()));
+      }
     });
   }
 

@@ -14,6 +14,7 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
       FirebaseFirestore.instance.collection('content').add({
         'imageUrl': event.content.imageUrl,
         'movieId': event.content.movieId,
+        'seenDate': event.content.date,
         'title': event.content.title,
         'opinion': event.content.opinion,
         'rate': event.content.rate,
@@ -43,6 +44,7 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
             final data = doc.data();
             return Content(
               id: doc.id,
+              seenDate: data['seenDate'].toDate(),
               imageUrl: data['imageUrl'],
               title: data['title'],
               opinion: data['opinion'],
@@ -75,6 +77,21 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
             'isSeen': true,
           });
         }
+        this.add(GetContentEvent());
+      } catch (e) {
+        emit(ContentError(e.toString()));
+      }
+    });
+
+    on<UpdateSeenDate>((event, emit) async {
+      try {
+        emit(const ContentLoading());
+        if (_subscription != null) {
+          _subscription!.cancel();
+        }
+        FirebaseFirestore.instance.collection('content').doc(event.id).update({
+          'seenDate': event.seenDate,
+        });
         this.add(GetContentEvent());
       } catch (e) {
         emit(ContentError(e.toString()));

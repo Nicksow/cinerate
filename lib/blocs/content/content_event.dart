@@ -23,3 +23,10 @@ class ContentSetState extends ContentEvent {
   ContentSetState(this.contentList);
 }
 
+class UpdateSeenDate extends ContentEvent {
+  final String? id;
+  final DateTime seenDate;
+
+  UpdateSeenDate(this.id,this.seenDate);
+}
+

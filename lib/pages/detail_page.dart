@@ -17,9 +17,8 @@ class DetailPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Color(0xffF2EFEA)),
         toolbarHeight: 75,
         backgroundColor: const Color(0xff38302E),
-        title: const Center(
-            child: Text('DETAILS',style: TextStyle(fontSize: 26,color: Color(0xffF2EFEA)))
-        ),
+        centerTitle: true,
+        title: Text('DETAILS',style: TextStyle(fontSize: 26,color: Color(0xffF2EFEA))),
       ),
       body: SingleChildScrollView(child: DetailsContent()),
     );
@@ -50,6 +49,7 @@ class _DetailsContent extends State<DetailsContent>{
             var content = state.content!;
             var globalRating = state.rates!;
             String formattedDate = DateFormat('dd/MM/yyyy').format(content.date);
+            String formattedSeenDate = DateFormat('dd/MM/yyyy').format(content.seenDate);
           _noteController.text = content.opinion;
             rating = content.rate.toDouble();
             return Padding(
@@ -57,14 +57,16 @@ class _DetailsContent extends State<DetailsContent>{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Flexible(
                             child: Text(content.title,
                               style: const TextStyle(
-                                fontSize: 42,
+                                fontSize: 36,
                                 color: Colors.white,
                               ),
+                              textAlign: TextAlign.center,
                             )
                         )
                       ]
@@ -128,10 +130,18 @@ class _DetailsContent extends State<DetailsContent>{
                   const SizedBox(height: 30.0),
                   Text("Ajouté le $formattedDate",
                       style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
+                        fontSize: 12,
+                        color: Colors.white70,
                       )
                   ),
+                  const SizedBox(height: 10.0),
+                  if(content.isSeen)
+                    Text("Vu le $formattedSeenDate",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white70,
+                      ),
+                    ),
                   const SizedBox(height: 150.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

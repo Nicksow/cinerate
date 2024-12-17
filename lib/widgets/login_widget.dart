@@ -17,7 +17,7 @@ class LoginWidget extends StatelessWidget {
               if (state is LoggedIn) {
                 Navigator.pushNamed(context, '/home');
                 SnackBar snackBar = SnackBar(
-                  content: Text('Welcome back  ${state.user.name} !'),
+                  content: Text('Content de vous revoir ${state.user.name} !'),
                   duration: const Duration(seconds: 2),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -78,29 +78,42 @@ class LoginForm extends StatelessWidget {
         margin: const EdgeInsets.all(15),
         child: Column(
           children: <Widget>[
-            const Text('Entrez votre nom et mot de passe',
-                style: TextStyle(color: Colors.white70)),
+            const Text('Connexion',
+                style: TextStyle(color: Colors.white, fontSize: 24)),
             TextField(
-              decoration: const InputDecoration(labelText: 'Name',
+              decoration: const InputDecoration(labelText: 'Email',
                   labelStyle: TextStyle(color: Colors.white70)),
               controller: nameController,
-              onSubmitted: (value) => _tryLogin(loginBloc),
+              onSubmitted: (value) => tryLogin(loginBloc),
               style: const TextStyle(color: Colors.white70),
             ),
             TextField(
-              decoration: const InputDecoration(labelText: 'Password',
+              decoration: const InputDecoration(labelText: 'Mot de passe',
                   labelStyle: TextStyle(color: Colors.white70)),
               controller: passwordController,
               obscureText: true,
-              onSubmitted: (value) => _tryLogin(loginBloc),
+              onSubmitted: (value) => tryLogin(loginBloc),
               style: const TextStyle(color: Colors.white70),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(150, 25),
+              ),
               onPressed: () {
-                _tryLogin(loginBloc);
+                tryLogin(loginBloc);
               },
-              child: const Text('Login'),
+              child: const Text('Se connecter'),
+            ),
+            const SizedBox(height: 5),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(150, 25),
+              ),
+              onPressed: () {
+                tryRegister(loginBloc);
+              },
+              child: const Text('S\'inscrire'),
             ),
           ],
         ),
@@ -108,8 +121,13 @@ class LoginForm extends StatelessWidget {
     );
   }
 
-  void _tryLogin(loginBloc) {
+  void tryLogin(loginBloc) {
     loginBloc.add(LogInEvent(
+        name: nameController.text, password: passwordController.text));
+  }
+
+  void tryRegister(loginBloc) {
+    loginBloc.add(RegisterEvent(
         name: nameController.text, password: passwordController.text));
   }
 }

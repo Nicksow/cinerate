@@ -21,9 +21,8 @@ class AddPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Color(0xffF2EFEA)),
         toolbarHeight: 75,
         backgroundColor: const Color(0xff38302E),
-        title: const Center(
-          child: Text('AJOUT FILMS / SERIES', style: TextStyle(fontSize: 26, color: Color(0xffF2EFEA))),
-        ),
+        centerTitle: true,
+        title: Text('AJOUT FILMS / SERIES', style: TextStyle(fontSize: 26, color: Color(0xffF2EFEA))),
       ),
       body: const SingleChildScrollView(child: DataPage()),
     );
@@ -227,6 +226,7 @@ class _DataPageState extends State<DataPage> {
               rate: rating,
               type: currentOption,
               date: DateTime.now(),
+              seenDate: DateTime.now(),
               username: (loginBloc.state as LoggedIn).user.name,
               isSeen: false,
             )));

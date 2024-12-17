@@ -22,3 +22,8 @@ class LoggedIn extends LoginState {
 class LoggedOut extends LoginState {
   const LoggedOut();
 }
+
+class Registering extends LoginState {
+  const Registering();
+}
+
