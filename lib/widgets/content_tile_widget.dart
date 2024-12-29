@@ -23,7 +23,7 @@ class _ContentTileState extends State<ContentTile> {
 
   void toggleSeenAnimation(BuildContext context) {
     setState(() {
-      opacity = opacity == 1.0 ? 0.5 : 1.0;
+      opacity == 1.0 ? 0.5 : 1.0;
     });
     Future.delayed(const Duration(milliseconds: 300), () {
       var contentBloc = context.read<ContentBloc>();
@@ -56,7 +56,7 @@ class _ContentTileState extends State<ContentTile> {
                       width: 60,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: NetworkImage('https://image.tmdb.org/t/p/w500${widget.data.imageUrl}' ?? 'https://via.placeholder.com/150'),
+                          image: NetworkImage('https://image.tmdb.org/t/p/w500${widget.data.imageUrl}'??''),
                           fit: BoxFit.cover,
                         ),
                       ),

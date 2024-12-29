@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cinerate/blocs/content/content_event.dart';
 import 'package:cinerate/blocs/content/content_state.dart';
 import 'package:cinerate/models/content.dart';

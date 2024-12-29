@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cinerate/blocs/movieDB/movieDB_event.dart';
 import 'package:cinerate/blocs/movieDB/movieDB_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

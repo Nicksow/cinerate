@@ -50,7 +50,7 @@ class _DetailsContent extends State<DetailsContent>{
             var globalRating = state.rates!;
             String formattedDate = DateFormat('dd/MM/yyyy').format(content.date);
             String formattedSeenDate = DateFormat('dd/MM/yyyy').format(content.seenDate);
-          _noteController.text = content.opinion;
+            _noteController.text = content.opinion;
             rating = content.rate.toDouble();
             return Padding(
               padding: const EdgeInsets.all(25),

@@ -35,15 +35,14 @@ class DataPage extends StatefulWidget {
   @override
   State<DataPage> createState() => _DataPageState();
 }
-
 const List<String> contentType = ["Film", "Série"];
 class _DataPageState extends State<DataPage> {
   final _textFieldController = TextEditingController();
   final _opinionController = TextEditingController();
   String currentOption = contentType[0];
   double rating = 0.0;
-  String imageUrl = '';
-  var movieId = 0;
+  late String imageUrl;
+  late var movieId;
 
   @override
   Widget build(BuildContext context) {

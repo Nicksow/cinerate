@@ -1,6 +1,3 @@
-import 'package:cinerate/blocs/content/content_bloc.dart';
-import 'package:cinerate/blocs/content/content_event.dart';
-import 'package:cinerate/blocs/content/content_state.dart';
 import 'package:cinerate/blocs/login/login_bloc.dart';
 import 'package:cinerate/blocs/login/login_event.dart';
 import 'package:cinerate/blocs/login/login_state.dart';
@@ -12,8 +9,6 @@ import 'package:provider/provider.dart';
 
 class MenuDrawerWidget extends StatelessWidget {
   const MenuDrawerWidget({super.key});
-
-
   @override
   Widget build(BuildContext context) {
     final menuIndex = Provider.of<MenuIndex>(context);
@@ -73,7 +68,7 @@ class MenuDrawerWidget extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => const LoginPage()),
-                            (route) => false, // Supprime toutes les routes précédentes
+                            (route) => false,
                       );
                     },
                   )
