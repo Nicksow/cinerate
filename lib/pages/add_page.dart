@@ -22,7 +22,7 @@ class AddPage extends StatelessWidget {
         toolbarHeight: 75,
         backgroundColor: const Color(0xff38302E),
         centerTitle: true,
-        title: Text('AJOUT FILMS / SERIES', style: TextStyle(fontSize: 26, color: Color(0xffF2EFEA))),
+        title: Text('AJOUT CONTENU', style: TextStyle(fontSize: 26, color: Color(0xffF2EFEA))),
       ),
       body: const SingleChildScrollView(child: DataPage()),
     );
@@ -83,7 +83,7 @@ class _DataPageState extends State<DataPage> {
         Expanded(
           child: SearchBar(
             controller: _textFieldController,
-            hintText: 'Rechercher un film ou une série',
+            hintText: 'Recherchez un film ou une série',
             leading: const Icon(Icons.search),
             onChanged: (value) {
               movieDBBloc.add(MovieDBLoadEvent(query: value));

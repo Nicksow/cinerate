@@ -18,7 +18,7 @@ class DetailPage extends StatelessWidget {
         toolbarHeight: 75,
         backgroundColor: const Color(0xff38302E),
         centerTitle: true,
-        title: Text('DETAILS',style: TextStyle(fontSize: 26,color: Color(0xffF2EFEA))),
+        title: Text('DÉTAILS',style: TextStyle(fontSize: 26,color: Color(0xffF2EFEA))),
       ),
       body: SingleChildScrollView(child: DetailsContent()),
     );

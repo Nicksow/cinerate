@@ -32,7 +32,7 @@ class _HomePage extends State<HomePage> {
               ),
               tabs: const [
                 Tab(child: Text( "FILMS", style: TextStyle(fontSize: 20, color: Color(0xffF2EFEA)))),
-                Tab(child: Text( "SERIES",style: TextStyle(fontSize: 20, color: Color(0xffF2EFEA)))),
+                Tab(child: Text( "SÉRIES",style: TextStyle(fontSize: 20, color: Color(0xffF2EFEA)))),
               ],
             ),
           ),
